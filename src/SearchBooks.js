@@ -1,8 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
+import SearchBooksResults from './SearchBooksResults'
 
 class SearchBooks extends React.Component {
+  state = {
+    query: '',
+    searchBooks: [],
+  }
+
+  handleOnChange = (query) => {
+    //this.setState(() => ({
+    //  query: query,
+    //}))
+
+    BooksAPI.search(query)
+      .then((searchBooks) => {
+        this.setState(() => ({
+          searchBooks: searchBooks,
+        }))
+      })
+  }
 
   render() {
     return(
@@ -12,12 +30,15 @@ class SearchBooks extends React.Component {
             <button className="close-search">Close</button>
           </Link>
           <div className="search-books-input-wrapper">
-            <input type="text" placeholder="Search by title or author"/>
+            <input
+              type="text"
+              //value={this.state.query}
+              placeholder="Search by title or author"
+              onChange={(event) => this.handleOnChange(event.target.value)}
+            />
           </div>
         </div>
-        <div className="search-books-results">
-          <ol className="books-grid"></ol>
-        </div>
+        <SearchBooksResults searchBooks={this.state.searchBooks}/>
       </div>
     )
   }
