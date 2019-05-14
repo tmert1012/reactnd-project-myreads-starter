@@ -5,7 +5,7 @@ const SearchBooksResults = ({ searchBooks }) =>
   <div className="search-books-results">
     <ol className="books-grid">
       {searchBooks && searchBooks.map((book) => (
-        <li><Book book={book}></Book></li>
+        <li key={book.id}><Book book={book}></Book></li>
       ))}
     </ol>
   </div>
