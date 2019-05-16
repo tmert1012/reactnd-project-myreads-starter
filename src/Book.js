@@ -9,13 +9,16 @@ class Book extends React.Component {
 
     BooksAPI.update(this.props.book, shelf)
       .then((res) => {
-        console.log(res)
+        console.log('BooksAPI.update() called')
+        this.props.handleBookShelfChanged()
       })
   }
 
   render() {
 
-    const { book } = this.props
+    const { book, shelf } = this.props
+
+    console.log(`book ${book.title}, shelf ${shelf}`)
 
     const divStyle = {
       width: 128,
@@ -27,7 +30,7 @@ class Book extends React.Component {
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={divStyle}></div>
-          <BookShelfChanger handleBookShelfChanged={this.handleBookShelfChanged} />
+          <BookShelfChanger shelf={shelf} handleBookShelfChanged={this.handleBookShelfChanged} />
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">{(book.authors && book.authors.length > 0) ? book.authors[0] : ''}</div>
@@ -39,6 +42,8 @@ class Book extends React.Component {
 
 Book.propTypes = {
   book: PropTypes.object.isRequired,
+  shelf: PropTypes.string.isRequired,
+  handleBookShelfChanged: PropTypes.func.isRequired,
 }
 
 export default Book

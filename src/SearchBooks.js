@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import SearchBooksResults from './SearchBooksResults'
 
@@ -46,11 +47,20 @@ class SearchBooks extends React.Component {
             />
           </div>
         </div>
-        <SearchBooksResults searchBooks={this.state.searchBooks}/>
+        <SearchBooksResults
+          handleBookShelfChanged={this.props.handleBookShelfChanged}
+          shelfBookIds={this.props.shelfBookIds}
+          searchBooks={this.state.searchBooks}
+        />
       </div>
     )
   }
 
+}
+
+SearchBooks.propTypes = {
+  shelfBookIds: PropTypes.object.isRequired,
+  handleBookShelfChanged: PropTypes.func.isRequired,
 }
 
 export default SearchBooks

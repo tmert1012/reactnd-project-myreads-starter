@@ -14,9 +14,24 @@ class ListBooks extends React.Component {
       </div>
       <div className="list-books-content">
         <div>
-          <BookShelf books={this.props.booksOnShelf.filter((book) => book.shelf === 'currentlyReading')} title="Currently Reading"/>
-          <BookShelf books={this.props.booksOnShelf.filter((book) => book.shelf === 'wantToRead')} title="Want to Read"/>
-          <BookShelf books={this.props.booksOnShelf.filter((book) => book.shelf === 'read')} title="Read"/>
+          <BookShelf
+            shelf='currentlyReading'
+            books={this.props.booksOnShelf.filter((book) => book.shelf === 'currentlyReading')}
+            title="Currently Reading"
+            handleBookShelfChanged={this.props.handleBookShelfChanged}
+          />
+          <BookShelf
+            shelf='wantToRead'
+            books={this.props.booksOnShelf.filter((book) => book.shelf === 'wantToRead')}
+            title="Want to Read"
+            handleBookShelfChanged={this.props.handleBookShelfChanged}
+          />
+          <BookShelf
+            shelf='read'
+            books={this.props.booksOnShelf.filter((book) => book.shelf === 'read')}
+            title="Read"
+            handleBookShelfChanged={this.props.handleBookShelfChanged}
+          />
         </div>
       </div>
       <OpenSearch />
@@ -28,6 +43,7 @@ class ListBooks extends React.Component {
 
 ListBooks.propTypes = {
   booksOnShelf: PropTypes.array.isRequired,
+  handleBookShelfChanged: PropTypes.func.isRequired,
 }
 
 export default ListBooks
