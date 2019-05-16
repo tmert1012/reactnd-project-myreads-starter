@@ -27,7 +27,7 @@ class SearchBooks extends React.Component {
 
         // set returned books
         this.setState(() => ({
-          searchBooks: searchBooks.error ? [] : searchBooks,
+          searchBooks: searchBooks.error ? [] : searchBooks.filter(book => book.imageLinks && book.imageLinks.smallThumbnail),
         }))
       })
   }
