@@ -16,9 +16,6 @@ class SearchBooksResults extends React.Component {
   }
 
   render() {
-
-    console.log(this.props.shelfBookIds)
-
     return (
       <div className="search-books-results">
         <ol className="books-grid">

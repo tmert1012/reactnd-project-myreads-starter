@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import SearchBooksResults from './SearchBooksResults'
+import { Debounce } from 'react-throttle';
 
 class SearchBooks extends React.Component {
   state = {
@@ -21,11 +22,7 @@ class SearchBooks extends React.Component {
     // search API for books matching query string
     BooksAPI.search(query)
       .then((searchBooks) => {
-        // api error?
-        if (searchBooks.error)
-          console.log(`BooksAPI.search() returned an error: ${searchBooks.error}, unable to load books.`)
-
-        // set returned books
+         // set returned books
         this.setState(() => ({
           searchBooks: searchBooks.error ? [] : searchBooks.filter(book => book.imageLinks && book.imageLinks.smallThumbnail),
         }))
@@ -40,11 +37,13 @@ class SearchBooks extends React.Component {
             <button className="close-search">Close</button>
           </Link>
           <div className="search-books-input-wrapper">
-            <input
-              type="text"
-              placeholder="Search by title or author"
-              onChange={(event) => this.handleOnChange(event.target.value)}
-            />
+            <Debounce time="400" handler="onChange">
+              <input
+                type="text"
+                placeholder="Search by title or author"
+                onChange={(event) => this.handleOnChange(event.target.value)}
+              />
+            </Debounce>
           </div>
         </div>
         <SearchBooksResults

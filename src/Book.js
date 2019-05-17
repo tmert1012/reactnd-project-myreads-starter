@@ -9,7 +9,6 @@ class Book extends React.Component {
 
     BooksAPI.update(this.props.book, shelf)
       .then((res) => {
-        console.log('BooksAPI.update() called')
         this.props.handleBookShelfChanged()
       })
   }
@@ -17,8 +16,6 @@ class Book extends React.Component {
   render() {
 
     const { book, shelf } = this.props
-
-    console.log(`book ${book.title}, shelf ${shelf}`)
 
     const divStyle = {
       width: 128,
